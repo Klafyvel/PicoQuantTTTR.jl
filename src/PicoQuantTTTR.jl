@@ -393,7 +393,11 @@ function Base.getproperty(f::TTTR, sym::Symbol)
     end
 end
 function Base.propertynames(t::TTTR, private::Bool=false)
-    [Tables.columnnames(t); fieldnames(TTTR)...]
+    if private 
+        [Tables.columnnames(t); fieldnames(TTTR)...]
+    else
+        [Tables.columnnames(t); :header]
+    end
 end
 
 export TTTR
